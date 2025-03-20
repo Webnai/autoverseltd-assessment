@@ -1,10 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./components/Home";
+import Settings from "./components/Settings";
+import Savings from "./components/Savings";
+import Donation from "./components/Donation";
+import Profile from "./components/Profile";
+import { House } from "@mui/icons-material";
+import { HandymanRounded } from "@mui/icons-material";
+import { SavingsRounded } from "@mui/icons-material";
+import { VolunteerActivismRounded } from "@mui/icons-material";
+import { Person2Rounded } from "@mui/icons-material";
 
-const Home = () => <div className="text-center text-xl">🏠 Home Page</div>;
-const About = () => <div className="text-center text-xl">ℹ️ About Page</div>;
-const Contact = () => <div className="text-center text-xl">📞 Contact Page</div>;
-
-const MobileApp = () => {
+const AssesmentApp = () => {
   const navigate = useNavigate();
 
   return (
@@ -14,23 +20,51 @@ const MobileApp = () => {
         <div className="flex-grow flex items-center justify-center">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/savings" element={<Savings />} />
+            <Route path="/donation" element={<Donation />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between bg-white mt-4">
-          <button onClick={() => navigate("/")} className="px-4 py-2 bg-blue-500 text-white rounded-lg">
-            Home
+        <div className="flex justify-between bg-white mt-4 ">
+          <button
+            onClick={() => navigate("/")}
+            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
+          >
+            <House fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
           </button>
-          <button onClick={() => navigate("/about")} className="px-4 py-2 bg-green-500 text-white rounded-lg">
-            About
+
+          <button
+            onClick={() => navigate("/settings")}
+            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
+          >
+            <HandymanRounded fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
           </button>
-          <button onClick={() => navigate("/contact")} className="px-4 py-2 bg-red-500 text-white rounded-lg">
-            Contact
+
+          <button
+            onClick={() => navigate("/savings")}
+            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
+          >
+            <SavingsRounded fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
+          </button>
+
+          <button
+            onClick={() => navigate("/donation")}
+            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
+          >
+            <VolunteerActivismRounded fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
+          </button>
+
+          <button
+            onClick={() => navigate("/profile")}
+            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
+          >
+            <Person2Rounded fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
           </button>
         </div>
+
       </div>
     </div>
   );
@@ -39,7 +73,7 @@ const MobileApp = () => {
 export default function App() {
   return (
     <Router>
-      <MobileApp />
+      <AssesmentApp />
     </Router>
   );
 }
