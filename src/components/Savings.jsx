@@ -29,7 +29,7 @@ const Savings = () => {
           <div className='bg-red-200 flex  flex-col justify-between h-[150px] lg:h-[200px] rounded-lg shadow-md p-[1px]'>
             <h1 className=' lg:text-2xl font-semibold text-center mt-2'>New Car Savings</h1>
             <div className='flex flex-col gap-2 lg:p-6 bg-white rounded-lg h-[110px] lg:h-[150px] p-2'>
-              <h1 className='font-bold text-xl lg:text-2xl text-center mt-2'>₵13,750</h1>
+              <h1 className='font-bold text-xl lg:text-2xl text-center mt-1 lg:m-0 '>₵13,750</h1>
               <LinearProgress
                 variant="determinate"
                 value={70}
