@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Home from "./components/Home";
 import Settings from "./components/Settings";
 import Savings from "./components/Savings";
@@ -12,10 +13,24 @@ import { Person2Rounded } from "@mui/icons-material";
 
 const AssesmentApp = () => {
   const navigate = useNavigate();
+  const [active, setActive] = useState("/"); // Track active button
+
+  const handleNavigate = (path) => {
+    setActive(path);
+    navigate(path);
+  };
+
+  const buttonClasses = (path) =>
+    `p-2 flex items-center justify-center transition-all duration-300 cursor-pointer 
+     ${active === path ? "bg-red-500 text-white scale-150 -translate-y-3 rounded-full" : "bg-gray-100 rounded-lg hover:rounded-full hover:bg-red-500 hover:text-white hover:scale-150 hover:-translate-y-3"} 
+     hover:[&>*]:text-white`;
+
+  const iconClasses = (path) =>
+    `text-gray-700 transition-all duration-300 ${active === path ? "text-white" : ""}`;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200 min-w-full">
-      <div className="w-[350px] h-[600px] bg-white rounded-2xl shadow-lg flex flex-col p-6">
+      <div className="w-[350px] h-[600px] bg-white rounded-3xl shadow-lg flex flex-col">
         {/* Page Content */}
         <div className="flex-grow flex items-center justify-center">
           <Routes>
@@ -28,40 +43,25 @@ const AssesmentApp = () => {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between bg-white mt-4 ">
-          <button
-            onClick={() => navigate("/")}
-            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
-          >
-            <House fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
+        <div className="flex justify-between bg-white mt-4 rounded-2xl px-6 py-2 w-[90%] mx-auto">
+          <button onClick={() => handleNavigate("/")} className={buttonClasses("/")}>
+            <House sx={{ fontSize: 16 }} className={iconClasses("/")} />
           </button>
 
-          <button
-            onClick={() => navigate("/settings")}
-            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
-          >
-            <HandymanRounded fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
+          <button onClick={() => handleNavigate("/settings")} className={buttonClasses("/settings")}>
+            <HandymanRounded sx={{ fontSize: 16 }} className={iconClasses("/settings")} />
           </button>
 
-          <button
-            onClick={() => navigate("/savings")}
-            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
-          >
-            <SavingsRounded fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
+          <button onClick={() => handleNavigate("/savings")} className={buttonClasses("/savings")}>
+            <SavingsRounded sx={{ fontSize: 16 }} className={iconClasses("/savings")} />
           </button>
 
-          <button
-            onClick={() => navigate("/donation")}
-            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
-          >
-            <VolunteerActivismRounded fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
+          <button onClick={() => handleNavigate("/donation")} className={buttonClasses("/donation")}>
+            <VolunteerActivismRounded sx={{ fontSize: 16 }} className={iconClasses("/donation")} />
           </button>
 
-          <button
-            onClick={() => navigate("/profile")}
-            className="bg-gray-100 p-2 rounded-lg hover:rounded-full flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-red-500 hover:scale-150 cursor-pointer"
-          >
-            <Person2Rounded fontSize="small" className=" text-gray-700 hover:text-white transition-all duration-300" />
+          <button onClick={() => handleNavigate("/profile")} className={buttonClasses("/profile")}>
+            <Person2Rounded sx={{ fontSize: 16 }} className={iconClasses("/profile")} />
           </button>
         </div>
 
