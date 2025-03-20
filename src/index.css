@@ -1,4 +1,13 @@
 @import "tailwindcss";
+@theme {
+  --default-font-family: 'roboto', sans-serif;
+  --default-font-size: 16px;
+  --default-line-height: 1.5;
+  --default-font-weight: 400;
+  --default-color-scheme: light red;
+  --default-color: black;
+  --default-font-synthesis: none;
+}
 
 :root {
   line-height: 1.5;

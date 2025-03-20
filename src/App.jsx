@@ -1,19 +1,15 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Home from "./components/Home";
+import Home1 from "./components/Home1";
 import Settings from "./components/Settings";
 import Savings from "./components/Savings";
 import Donation from "./components/Donation";
 import Profile from "./components/Profile";
-import { House } from "@mui/icons-material";
-import { HandymanRounded } from "@mui/icons-material";
-import { SavingsRounded } from "@mui/icons-material";
-import { VolunteerActivismRounded } from "@mui/icons-material";
-import { Person2Rounded } from "@mui/icons-material";
+import { Home, HandymanRounded, SavingsRounded, VolunteerActivismRounded, Person2Rounded } from "@mui/icons-material";
 
 const AssesmentApp = () => {
   const navigate = useNavigate();
-  const [active, setActive] = useState("/"); // Track active button
+  const [active, setActive] = useState("/savings");
 
   const handleNavigate = (path) => {
     setActive(path);
@@ -21,50 +17,54 @@ const AssesmentApp = () => {
   };
 
   const buttonClasses = (path) =>
-    `p-2 flex items-center justify-center transition-all duration-300 cursor-pointer 
-     ${active === path ? "bg-red-500 text-white scale-150 -translate-y-3 rounded-full" : "bg-gray-100 rounded-lg hover:rounded-full hover:bg-red-500 hover:text-white hover:scale-150 hover:-translate-y-3"} 
-     hover:[&>*]:text-white`;
-
-  const iconClasses = (path) =>
-    `text-gray-700 transition-all duration-300 ${active === path ? "text-white" : ""}`;
+    `p-2 flex items-center justify-center transition-all duration-300 cursor-pointer lg:w-full 
+     ${active === path ? "bg-red-500 text-white rounded-full lg:scale-110  md:rounded-md" : "bg-gray-100 rounded-md hover:rounded-full md:hover:rounded-md hover:bg-red-500 hover:text-white"} 
+     hover:[&>*]:text-white sm:hover:scale-110 sm:hover:translate-y-0 hover:scale-150 hover:-translate-y-3`;
+  
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-200 min-w-full">
-      <div className="w-[350px] h-[600px] bg-white rounded-3xl shadow-lg flex flex-col">
-        {/* Page Content */}
-        <div className="flex-grow flex items-center justify-center">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/savings" element={<Savings />} />
-            <Route path="/donation" element={<Donation />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </div>
-
-        {/* Navigation Buttons */}
-        <div className="flex justify-between bg-white mt-4 rounded-2xl px-6 py-2 w-[90%] mx-auto">
-          <button onClick={() => handleNavigate("/")} className={buttonClasses("/")}>
-            <House sx={{ fontSize: 16 }} className={iconClasses("/")} />
+    <div className="flex min-h-screen bg-white">
+      {/* Sidebar for Desktop */}
+      <div
+        className={`hidden md:flex flex-col md:gap-8 items-center p-4 bg-white shadow-lg transition-all duration-300 w-40"`}
+      
+      >
+        {[{ path: "/home", icon: <Home /> },
+          { path: "/settings", icon: <HandymanRounded /> },
+          { path: "/savings", icon: <SavingsRounded /> },
+          { path: "/donation", icon: <VolunteerActivismRounded /> },
+          { path: "/profile", icon: <Person2Rounded /> }
+        ].map(({ path, icon }) => (
+          <button key={path} onClick={() => handleNavigate(path)} className={buttonClasses(path)}>
+            {icon}
+             <span className="ml-2 text-sm">{path.replace("/", "").toUpperCase()}</span>
           </button>
+        ))}
+      </div>
 
-          <button onClick={() => handleNavigate("/settings")} className={buttonClasses("/settings")}>
-            <HandymanRounded sx={{ fontSize: 16 }} className={iconClasses("/settings")} />
+      {/* Main Content */}
+      <div className="flex-grow flex flex-col items-center justify-center ">
+        <Routes>
+          <Route path="/home" element={<Home1 />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/savings" element={<Savings />} />
+          <Route path="/donation" element={<Donation />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </div>
+
+      {/* Bottom Navigation for Mobile */}
+      <div className="fixed bottom-0 border-2 border-gray-200 w-full md:hidden flex justify-around bg-white p-2 shadow-lg">
+        {[{ path: "/home", icon: <Home /> },
+          { path: "/settings", icon: <HandymanRounded /> },
+          { path: "/savings", icon: <SavingsRounded /> },
+          { path: "/donation", icon: <VolunteerActivismRounded /> },
+          { path: "/profile", icon: <Person2Rounded /> }
+        ].map(({ path, icon }) => (
+          <button key={path} onClick={() => handleNavigate(path)} className={buttonClasses(path)}>
+            {icon}
           </button>
-
-          <button onClick={() => handleNavigate("/savings")} className={buttonClasses("/savings")}>
-            <SavingsRounded sx={{ fontSize: 16 }} className={iconClasses("/savings")} />
-          </button>
-
-          <button onClick={() => handleNavigate("/donation")} className={buttonClasses("/donation")}>
-            <VolunteerActivismRounded sx={{ fontSize: 16 }} className={iconClasses("/donation")} />
-          </button>
-
-          <button onClick={() => handleNavigate("/profile")} className={buttonClasses("/profile")}>
-            <Person2Rounded sx={{ fontSize: 16 }} className={iconClasses("/profile")} />
-          </button>
-        </div>
-
+        ))}
       </div>
     </div>
   );
